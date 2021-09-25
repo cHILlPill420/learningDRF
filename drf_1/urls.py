@@ -21,8 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('stuinfo/<int:pk>', views.student_detail),
     path('stuinfo/', views.student_list),
-    path('stucreate/', views.student_create),
-    path('sturead/',views.student_read),
-    path('stuupdate/', views.student_update),
-    path('studelete/', views.student_delete),
+    # path('stucreate/', views.student_create),
+    # path('sturead/',views.student_read),
+    # path('stuupdate/', views.student_update),
+    # path('studelete/', views.student_delete),
+    path('stuapi/', views.StudentApi.as_view()),
 ]
