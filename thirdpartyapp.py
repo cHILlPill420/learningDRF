@@ -2,7 +2,7 @@ from inspect import EndOfBlock
 import requests
 import json
 
-URL = "http://127.0.0.1:8000/sturead/"
+URL = "http://127.0.0.1:8000/stuapi/"
 
 
 def get_data(id=None):
@@ -14,47 +14,45 @@ def get_data(id=None):
     data = r.json()
     print (data)
 
-
-
-URL2 ="http://127.0.0.1:8000/stucreate/"
-
 def create_data():
     data = {
-        'name' : 'lang',
-        'roll' : 103,
-        'city' : 'Lalitpur'
+        'id' : 5,
+        'name' : 'Tng',
+        'roll' : 104,
+        'city' : 'Athmandu'
     }
     json_data = json.dumps(data)
-    r = requests.post(url= URL2, data = json_data)
+    r = requests.post(url= URL, data = json_data)
     data = r.json()
     print(data)
-
-URL3 = "http://127.0.0.1:8000/stuupdate/"
 
 def update_data():
     data = {
         'id' : 4,
-        'roll' : 104,
+        'name': 'blank',
+        'roll' : 108,
         'city' : 'kavre'
     }
     json_data = json.dumps(data)
-    r = requests.put(url= URL3, data = json_data)
+    r = requests.put(url= URL, data = json_data)
     data = r.json()
     print(data)
 
-URL4 = "http://127.0.0.1:8000/studelete/"
-
 def delete_data():
-    data = {'id':4}
+    data = {'id':6}
     json_data = json.dumps(data)
-    r = requests.delete(url= URL4, data = json_data)
+    r = requests.delete(url= URL, data = json_data)
     data = r.json()
     print(data)
 
 print("1: READ \n2: CREATE \n3: UPDATE \n4: DELETE")
 a = int(input('Pick one: '))
 if a==1:
-    get_data()
+    z = int(input('id pls (0 for all):'))
+    if z==0:
+        get_data()
+    else:    
+        get_data(z)
 elif a==2:
     create_data()
 elif a==3:
