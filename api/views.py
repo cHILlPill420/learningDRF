@@ -136,7 +136,7 @@ class StudentApi(View):
         py_data = JSONParser().parse(stream)
         id =  py_data.get('id')
         stu = Student.objects.get(id = id)
-        serializer = StudentSerializers(stu, data= py_data, partial = True)
+        serializer = StudentSerializers(stu, data= py_data, partial = True) #partial true = patch
         if serializer.is_valid():
             serializer.save()
             res = {'msg':'Data Updated'}
