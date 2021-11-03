@@ -6,6 +6,7 @@ URL = "http://127.0.0.1:8000/stuapi/"
 
 
 def get_data(id=None):
+    a = []
     data = {}
     if id is not None:
         data = {'id':id}
