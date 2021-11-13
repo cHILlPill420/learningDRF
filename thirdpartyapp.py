@@ -2,7 +2,9 @@ from inspect import EndOfBlock
 import requests
 import json
 
-URL = "http://127.0.0.1:8000/stuapi/"
+from requests.api import head
+
+URL = "http://127.0.0.1:8000/studapi/"
 
 
 def get_data(id=None):
@@ -11,38 +13,40 @@ def get_data(id=None):
     if id is not None:
         data = {'id':id}
     json_data = json.dumps(data)
-    r = requests.get(url= URL, data= json_data)
+    headers = {'content-Type': 'application/json'} #for @api view headers is required
+    r = requests.get(url= URL, headers=headers, data= json_data)
     data = r.json()
     print (data)
 
 def create_data():
     data = {
         'id' : 5,
-        'name' : 'Tng',
-        'roll' : 104,
-        'city' : 'Athmandu'
+        'name': 'blank',
+        'roll' : 105,
+        'city' : 'Bhaktapur'
     }
     json_data = json.dumps(data)
-    r = requests.post(url= URL, data = json_data)
+    headers = {'content-Type': 'application/json'} #for @api view headers is required
+    r = requests.post(url= URL,headers= headers, data = json_data)
     data = r.json()
     print(data)
 
 def update_data():
     data = {
-        'id' : 4,
-        'name': 'blank',
-        'roll' : 108,
-        'city' : 'kavre'
+        'id' : 9,
+        'roll' : 106,
     }
     json_data = json.dumps(data)
-    r = requests.put(url= URL, data = json_data)
+    headers = {'content-Type': 'application/json'} #for @api view headers is required
+    r = requests.put(url= URL, headers=headers, data = json_data)
     data = r.json()
     print(data)
 
 def delete_data():
-    data = {'id':6}
+    data = {'id': 9}
     json_data = json.dumps(data)
-    r = requests.delete(url= URL, data = json_data)
+    headers = {'content-Type': 'application/json'} #for @api view headers is required
+    r = requests.delete(url= URL, headers= headers, data = json_data)
     data = r.json()
     print(data)
 
