@@ -19,7 +19,8 @@ from django.shortcuts import render
 # from rest_framework import serializers
 # from rest_framework.renderers import JSONRenderer
 # from rest_framework.parsers import JSONParser
-from rest_framework.decorators import api_view
+# from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -167,11 +168,54 @@ from .serializers import StudentSerializers
 #         return HttpResponse(json_data, content_type='application/json')
 
 #----Function Based API view----#
-@api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
-def student_api(request, pk = None):
+# @api_view(['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+# def student_api(request, pk = None):
     
-    if request.method == 'GET':
-        id = pk
+#     if request.method == 'GET':
+#         id = pk
+#         if id is not None:
+#             stu = Student.objects.get(id = id)
+#             serializer = StudentSerializers(stu)
+#             return Response(serializer.data)
+#         stu = Student.objects.all()
+#         serializer = StudentSerializers(stu, many= True)
+#         return Response(serializer.data)
+    
+#     if request.method == 'POST':
+#         serializer = StudentSerializers(data= request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg': 'Data Created'}, status= status.HTTP_201_CREATED)
+#         return Response(serializer.errors)
+    
+#     if request.method == 'PUT':
+#         id = pk
+#         stu = Student.objects.get(pk = id)
+#         serializer = StudentSerializers(stu, data= request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg': 'Complete Data Updated'})
+#         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
+    
+#     if request.method == 'PATCH':
+#         id = pk
+#         stu = Student.objects.get(pk = id)
+#         serializer = StudentSerializers(stu, data= request.data, partial = True)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response({'msg': 'Partial Data Updated'})
+#         return Response(serializer.errors)
+    
+#     if request.method == 'DELETE':
+#         id =pk
+#         stu = Student.objects.get(pk = id)
+#         stu.delete()
+#         return Response({'msg': 'Data Deleted'})
+
+#Class Based API View
+class StudentAPI(APIView):
+    def get(self, request, pk= None, format= None):
+        id= pk
         if id is not None:
             stu = Student.objects.get(id = id)
             serializer = StudentSerializers(stu)
@@ -180,14 +224,14 @@ def student_api(request, pk = None):
         serializer = StudentSerializers(stu, many= True)
         return Response(serializer.data)
     
-    if request.method == 'POST':
+    def post(self, request, format= None):
         serializer = StudentSerializers(data= request.data)
         if serializer.is_valid():
             serializer.save()
             return Response({'msg': 'Data Created'}, status= status.HTTP_201_CREATED)
         return Response(serializer.errors)
     
-    if request.method == 'PUT':
+    def put(self, request, pk= None, format= None):
         id = pk
         stu = Student.objects.get(pk = id)
         serializer = StudentSerializers(stu, data= request.data)
@@ -196,7 +240,7 @@ def student_api(request, pk = None):
             return Response({'msg': 'Complete Data Updated'})
         return Response(serializer.errors, status= status.HTTP_400_BAD_REQUEST)
     
-    if request.method == 'PATCH':
+    def patch(self, request, pk= None, format= None):
         id = pk
         stu = Student.objects.get(pk = id)
         serializer = StudentSerializers(stu, data= request.data, partial = True)
@@ -205,7 +249,7 @@ def student_api(request, pk = None):
             return Response({'msg': 'Partial Data Updated'})
         return Response(serializer.errors)
     
-    if request.method == 'DELETE':
+    def delete(self, request, pk= None, format= None):
         id =pk
         stu = Student.objects.get(pk = id)
         stu.delete()
